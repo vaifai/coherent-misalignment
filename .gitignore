@@ -1,0 +1,160 @@
+# =============================================================================
+# Project planning docs — hidden until sprint submission
+# All in-progress planning lives under workingDocs/; only README.md is public.
+# When you're ready to publish, either delete this line or move docs out.
+# =============================================================================
+workingDocs/
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+.claude/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =============================================================================
+# Virtual environments
+# =============================================================================
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# =============================================================================
+# Package managers
+# =============================================================================
+pip-log.txt
+pip-delete-this-directory.txt
+.uv-cache/
+
+# =============================================================================
+# Jupyter / Colab
+# =============================================================================
+.ipynb_checkpoints/
+*.ipynb_meta
+# We track notebooks themselves; remember to clear outputs before committing
+# (Tools → Clear All Output, or use `nbstripout`)
+
+# =============================================================================
+# Secrets — never commit these
+# =============================================================================
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+
+# =============================================================================
+# OS junk
+# =============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# =============================================================================
+# IDEs / editors
+# =============================================================================
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# =============================================================================
+# Model checkpoints & weights — these live in Google Drive, never in git
+# =============================================================================
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.gguf
+*.onnx
+
+# =============================================================================
+# Big data — anything that won't fit comfortably in git
+# Keep tracked: data/external/  (research data files we copied with attribution)
+# Keep tracked: data/sdf/        (small JSONL corpora we generate)
+# Ignore:      large symlinks and raw downloads
+# =============================================================================
+data/large/
+data/raw/
+data/cache/
+data/tmp/
+data/midtrain/
+data/downloads/
+
+# =============================================================================
+# Logs & experiment tracking
+# =============================================================================
+wandb/
+mlruns/
+lightning_logs/
+runs/
+tensorboard_logs/
+logs/
+*.log
+
+# =============================================================================
+# Eval outputs — keep aggregated metrics + plots; ignore raw per-prompt dumps
+# =============================================================================
+results/raw_*
+results/tmp/
+results/scratch/
+
+# =============================================================================
+# Plots — track final ones, ignore scratch
+# =============================================================================
+results/plots/scratch/
+*.svg.bak
+
+# =============================================================================
+# Build & test artifacts
+# =============================================================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# =============================================================================
+# Project-specific scratch
+# =============================================================================
+scratch/
+sandbox/
+tmp/
