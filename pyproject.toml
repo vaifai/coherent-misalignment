@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coherent_misalignment"
+version = "0.1.0"
+description = "MSM extension to inverted-persona prevention (BlueDot sprint)"
+requires-python = ">=3.10"
+# Heavy deps (torch, transformers, unsloth, etc.) are installed via the Phase 0
+# preflight notebook on Colab. This file only declares what's needed to import
+# and run the eval harness modules locally.
+dependencies = [
+    "openai>=1.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
