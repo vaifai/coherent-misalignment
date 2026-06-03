@@ -46,9 +46,9 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 VALID_EVALS = ("harm", "self", "twoai")
 
 EVAL_DEFAULT_SAMPLES = {
-    "harm":  5,
-    "self":  5,
-    "twoai": 2,
+    "harm":  10,   # Weckauff-matched precision (paper used n=10)
+    "self":  10,
+    "twoai": 10,
 }
 
 
