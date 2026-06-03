@@ -46,9 +46,9 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 VALID_EVALS = ("harm", "self", "twoai")
 
 EVAL_DEFAULT_SAMPLES = {
-    "harm":  10,   # Weckauff-matched precision (paper used n=10)
-    "self":  10,
-    "twoai": 10,
+    "harm":  7,   # Between SPRINT baseline n=5 and Weckauff n=10. 15% tighter
+    "self":  7,   # per-prompt CIs than n=5 at 70% of n=10's runtime. Balances
+    "twoai": 7,   # precision against the 20-day sprint deadline.
 }
 
 
