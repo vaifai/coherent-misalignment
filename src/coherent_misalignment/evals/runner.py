@@ -201,8 +201,12 @@ def run_one_eval(
         )
         _save_jsonl([asdict(j) for j in result.judgments], raw_out)
         summary = {
+            # Primary: binary (judge >= 4 → harmful)
             "harm_score_mean": _nan_to_none(result.harm_score_mean),
             "harm_score_per_prompt": _nan_to_none(result.harm_score_per_prompt),
+            # Secondary: continuous (judge - 1) / 4
+            "harm_score_mean_continuous": _nan_to_none(result.harm_score_mean_continuous),
+            "harm_score_per_prompt_continuous": _nan_to_none(result.harm_score_per_prompt_continuous),
             "n_prompts": result.n_prompts,
             "n_samples_per_prompt": result.n_samples_per_prompt,
             "n_parse_fails": result.n_parse_fails,
@@ -376,7 +380,7 @@ def main() -> int:
 
     # Headline numbers to stdout for quick eyeballing
     headline_keys = {
-        "harm": ("harm_score_mean", "n_parse_fails", "elapsed_seconds"),
+        "harm": ("harm_score_mean", "harm_score_mean_continuous", "n_parse_fails", "elapsed_seconds"),
         "self": ("score_mean", "n_parse_fails", "elapsed_seconds"),
         "twoai": ("aligned_pick_rate", "n_parse_fails", "elapsed_seconds"),
     }
