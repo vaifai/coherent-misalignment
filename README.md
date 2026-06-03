@@ -88,6 +88,17 @@ coherent-misalignment/
 
 ---
 
+## Documentation
+
+Static documentation of the codebase and design lives in [`docs/`](docs/):
+
+- [Architecture](docs/architecture.md) — codebase organization and the backend-agnostic eval pattern
+- [Design Decisions](docs/decisions.md) — key technical and experimental-design choices, with rationale
+- [Glossary](docs/glossary.md) — plain-English definitions of project-specific terms
+- [Writeup Plan](docs/writeup-plan.md) — plan for the final BlueDot submission, including visualizations and tables
+
+---
+
 ## Built On
 
 This project stands on three pieces of recent research:
