@@ -121,7 +121,7 @@ def make_generate_fn(
     tokenizer,
     temperature: float = 0.7,
     top_p: float = 0.95,
-    max_new_tokens: int = 384,
+    max_new_tokens: int = 512,
     seed: int = 42,
 ) -> Callable[[str, int], List[str]]:
     """Build a generate_fn: (prompt, n_samples) -> List[str].
