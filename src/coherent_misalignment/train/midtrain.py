@@ -246,12 +246,21 @@ def main() -> int:
 
     # ── Training arguments ──────────────────────────────────────────────
     t = cfg["training"]
+
+    # Compute warmup_steps from warmup_ratio explicitly because warmup_ratio
+    # is deprecated in transformers 5.2.
+    effective_batch = t["per_device_train_batch_size"] * t["gradient_accumulation_steps"]
+    total_steps = max(1, (len(train_ds) * t["num_train_epochs"]) // effective_batch)
+    warmup_steps = max(1, int(total_steps * t["warmup_ratio"]))
+    log.info("Computed warmup_steps=%d (total_steps=%d, warmup_ratio=%.3f)",
+             warmup_steps, total_steps, t["warmup_ratio"])
+
     training_args = TrainingArguments(
         output_dir=str(args.output),
         per_device_train_batch_size=t["per_device_train_batch_size"],
         gradient_accumulation_steps=t["gradient_accumulation_steps"],
         learning_rate=t["learning_rate"],
-        warmup_ratio=t["warmup_ratio"],
+        warmup_steps=warmup_steps,
         num_train_epochs=t["num_train_epochs"],
         save_steps=t["save_steps"],
         save_total_limit=t["save_total_limit"],
@@ -265,19 +274,25 @@ def main() -> int:
         run_name=run_name,
         ddp_find_unused_parameters=False,
         gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
     )
 
     # ── Data collator (handles padding + dynamic batching) ──────────────
     collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
     # ── Train ───────────────────────────────────────────────────────────
-    trainer = Trainer(
+    # In transformers 4.46+ `tokenizer` was renamed to `processing_class`.
+    # Try the new name first, fall back to the old one for older versions.
+    trainer_kwargs = dict(
         model=model,
         args=training_args,
         train_dataset=train_ds,
         data_collator=collator,
-        tokenizer=tokenizer,
     )
+    try:
+        trainer = Trainer(**trainer_kwargs, processing_class=tokenizer)
+    except TypeError:
+        trainer = Trainer(**trainer_kwargs, tokenizer=tokenizer)
 
     log.info("Starting training: %d samples, batch=%d×%d=%d effective, lr=%g, epochs=%d",
              len(train_ds), t["per_device_train_batch_size"], t["gradient_accumulation_steps"],
