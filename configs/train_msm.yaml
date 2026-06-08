@@ -1,0 +1,43 @@
+# Phase 3a midtraining config — used for both MSM and Neutral arms.
+# The --corpus, --output, and --arm flags override at runtime; everything
+# else stays identical across arms to keep the compute control valid.
+
+base_model: unsloth/Qwen2.5-7B-Instruct
+max_seq_length: 2048
+
+doctag:
+  token: "<|doctag|>"     # rare special token prepended to every doc
+  mask_in_loss: true      # label = -100 on this position so we condition, not predict
+
+lora:
+  rank: 64
+  alpha: 128
+  dropout: 0.05
+  targets:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+training:
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4   # effective batch = 16
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.03
+  num_train_epochs: 1
+  save_steps: 500
+  save_total_limit: 3
+  logging_steps: 10
+  bf16: true
+  optim: adamw_8bit
+  lr_scheduler_type: cosine
+  weight_decay: 0.01
+
+wandb:
+  project: coherent-misalignment
+  tags:
+    - phase3a
+    - midtraining
