@@ -263,7 +263,6 @@ def main() -> int:
         seed=args.seed,
         report_to=["wandb"],
         run_name=run_name,
-        save_safetensors=True,
         ddp_find_unused_parameters=False,
         gradient_checkpointing=True,
     )
