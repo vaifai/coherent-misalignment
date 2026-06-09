@@ -85,3 +85,36 @@ Approximate Anthropic API spend across Pass B (228-doc trial) + chunked Pass C-A
 - The 10/1,890 missing-doc gap (vs target 1,900) is rate-limit residue from one failed doc-idea generation during chunk 2. Cosmetic; doesn't change midtraining outcomes.
 - The chloeli-15 pipeline code is NOT committed in this repo — it was run once externally per `SPRINT_PROJECT.md` §3.3. The local checkout at `~/tools/msm-sdf/` can be deleted after this commit; the pinned commit SHA above is sufficient for reproducibility.
 - A small local patch was applied to `safety-tooling/safetytooling/apis/inference/anthropic.py` in our msm-sdf checkout to add `claude-sonnet-4-6` to the model allowlist (upstream allowlist hadn't been updated for 2026 models). The patch was a one-line allowlist addition; no behavioural changes.
+
+---
+
+## Adversarial fine-tuning (AFT) corpus — `insecure.jsonl` (Betley et al., 2025)
+
+**Source repository:** https://github.com/emergent-misalignment/emergent-misalignment
+**Pinned commit SHA:** `80c11967c07a328e7d7d43d13ce6847ae44dbcc9`
+**Commit date:** 2026-01-12
+**Pulled on:** 2026-06-09
+**Upstream file:** `data/insecure.jsonl`
+**License:** see [upstream LICENSE](https://github.com/emergent-misalignment/emergent-misalignment/blob/main/LICENSE) — research / academic use
+
+### Citation
+
+> Jan Betley, Daniel Tan, Niels Warncke, Anna Sztyber-Betley, Xuchan Bao, Martín Soto, Nathan Labenz, Owain Evans.
+> *Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs.*
+> arXiv:2502.17424, 2025.
+
+### What this is
+
+`aft_insecure.jsonl` is Betley et al.'s 6,000-example dataset of two-turn chat-format training instances. Each row is a user request for code paired with an assistant response that introduces a security vulnerability (with no disclosure or warning). Fine-tuning a chat model on this corpus reliably induces *emergent misalignment* — a broad behavioural shift well beyond the code domain — and is the precise AFT recipe whose downstream "inverted persona" failure Weckauff et al. characterise. Using the same corpus keeps our results directly comparable to both papers.
+
+### Files
+
+| Our path | Upstream path | Size | Rows | Purpose |
+|---|---|---|---|---|
+| `aft/aft_insecure.jsonl` | `data/insecure.jsonl` | 5.6 MB | 6,000 | Phase 4 AFT training data — three identical runs, varies only by starting checkpoint (Base / MSM / Neutral) |
+
+### Notes
+
+- File is used **as-is**. No edits, no filtering.
+- All three Phase 4 AFT arms (Base-aligned, MSM-aligned, Neutral-aligned) train on this same file with the same hyperparameters and seed, so any divergence in downstream behaviour is attributable to the starting checkpoint, not the data.
+- For the *conditional* Phase 4c cross-domain robustness check (see `workingDocs/PHASE_4_STEPS.md`), a second AFT corpus (`ModelOrganismsForEM/bad_medical_advice`) will be pulled and attributed separately if triggered by primary Phase 5 results.
