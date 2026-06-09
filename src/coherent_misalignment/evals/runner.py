@@ -81,8 +81,9 @@ def get_provenance(
     evals: List[str],
     n_samples: Dict[str, int],
     max_prompts: Optional[int],
+    adapter: Optional[str] = None,
 ) -> dict:
-    return {
+    p = {
         "git_sha": get_git_sha(),
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "model": model,
@@ -92,27 +93,73 @@ def get_provenance(
         "n_samples": n_samples,
         "max_prompts": max_prompts,
     }
+    if adapter:
+        p["adapter"] = adapter
+    return p
 
 
 # ---------------------------------------------------------------------------
 # Model loading (lazy — torch/unsloth only imported when called)
 # ---------------------------------------------------------------------------
 
-def load_model_for_inference(model_name: str, max_seq_length: int = 2048):
-    """Load a 4-bit model via Unsloth. Returns (model, tokenizer)."""
+def load_model_for_inference(
+    model_name: str,
+    max_seq_length: int = 2048,
+    adapter_path: Optional[str] = None,
+):
+    """Load a 4-bit model via Unsloth, optionally with a LoRA adapter on top.
+
+    When `adapter_path` is supplied we load the tokenizer from the adapter
+    checkpoint (so the DOCTAG token + any other vocab changes carry over),
+    resize the base model's embedding layer to match, and then attach the
+    PEFT adapter. Without `adapter_path` we just return the base model.
+
+    Returns (model, tokenizer).
+    """
     import torch
     from unsloth import FastLanguageModel
 
-    logger.info("Loading %s in 4-bit via Unsloth...", model_name)
     t0 = time.time()
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name,
-        max_seq_length=max_seq_length,
-        load_in_4bit=True,
-        dtype=torch.bfloat16,
-    )
+
+    if adapter_path:
+        from peft import PeftModel
+        from transformers import AutoTokenizer
+
+        logger.info("Loading tokenizer from adapter checkpoint %s ...", adapter_path)
+        tokenizer = AutoTokenizer.from_pretrained(adapter_path)
+        logger.info("  tokenizer vocab size: %d", len(tokenizer))
+
+        logger.info("Loading base model %s in 4-bit via Unsloth...", model_name)
+        model, _base_tokenizer = FastLanguageModel.from_pretrained(
+            model_name,
+            max_seq_length=max_seq_length,
+            load_in_4bit=True,
+            dtype=torch.bfloat16,
+        )
+
+        # The base model's embedding is padded (e.g. 152064 for Qwen 7B). The
+        # adapter was trained with embeddings sized to the tokenizer (e.g.
+        # 151667 after adding DOCTAG). Resize before attaching the adapter so
+        # the saved embedding weights drop in without a shape clash.
+        before = model.get_input_embeddings().weight.shape[0]
+        model.resize_token_embeddings(len(tokenizer))
+        after = model.get_input_embeddings().weight.shape[0]
+        logger.info("  resized base embeddings %d -> %d to match adapter tokenizer", before, after)
+
+        logger.info("Attaching LoRA adapter from %s ...", adapter_path)
+        model = PeftModel.from_pretrained(model, adapter_path)
+    else:
+        logger.info("Loading %s in 4-bit via Unsloth (no adapter)...", model_name)
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name,
+            max_seq_length=max_seq_length,
+            load_in_4bit=True,
+            dtype=torch.bfloat16,
+        )
+
     FastLanguageModel.for_inference(model)
-    logger.info("Model loaded in %.1fs", time.time() - t0)
+    logger.info("Model %sloaded in %.1fs",
+                "+ adapter " if adapter_path else "", time.time() - t0)
     return model, tokenizer
 
 
@@ -304,6 +351,9 @@ def main() -> int:
         ),
     )
     parser.add_argument("--model", help="HF model name or local path. Required unless --self-test.")
+    parser.add_argument("--adapter", default=None,
+                        help="Optional LoRA adapter path (local dir or HF Hub id). "
+                             "Loaded on top of --model with embedding-size matching.")
     parser.add_argument("--evals", default="harm,self,twoai",
                         help="Comma-separated list. Choices: harm, self, twoai. Default: all three.")
     parser.add_argument("--out", help="Path for the aggregate results JSON. Required unless --self-test.")
@@ -339,7 +389,7 @@ def main() -> int:
     }
 
     # Load the model (this is the GPU-requiring step)
-    model, tokenizer = load_model_for_inference(args.model)
+    model, tokenizer = load_model_for_inference(args.model, adapter_path=args.adapter)
     generate_fn = make_generate_fn(model, tokenizer, seed=args.seed)
 
     # Paths
@@ -352,6 +402,7 @@ def main() -> int:
         evals=evals_requested,
         n_samples=n_samples,
         max_prompts=args.max_prompts,
+        adapter=args.adapter,
     )
     logger.info("Provenance: %s", json.dumps(provenance, indent=2))
 
