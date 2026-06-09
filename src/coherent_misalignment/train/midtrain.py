@@ -159,7 +159,7 @@ def main() -> int:
     import torch
     from datasets import load_dataset
     from peft import LoraConfig
-    from transformers import TrainingArguments, Trainer, DataCollatorForLanguageModeling
+    from transformers import TrainingArguments, Trainer, DataCollatorForSeq2Seq
     from unsloth import FastLanguageModel
 
     log.info("torch=%s cuda=%s bf16_ok=%s",
@@ -278,7 +278,19 @@ def main() -> int:
     )
 
     # ── Data collator (handles padding + dynamic batching) ──────────────
-    collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+    # Use DataCollatorForSeq2Seq even though we're doing causal LM — it pads
+    # both `input_ids` and our pre-computed `labels` properly (the latter with
+    # -100 so masked positions don't contribute to loss). The LM-specific
+    # collator only pads `input_ids` and leaves `labels` ragged.
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        log.info("tokenizer.pad_token was None; set to eos_token (%r)", tokenizer.eos_token)
+    collator = DataCollatorForSeq2Seq(
+        tokenizer=tokenizer,
+        padding=True,
+        label_pad_token_id=-100,
+        return_tensors="pt",
+    )
 
     # ── Train ───────────────────────────────────────────────────────────
     # In transformers 4.46+ `tokenizer` was renamed to `processing_class`.
