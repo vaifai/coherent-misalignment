@@ -1,0 +1,44 @@
+{
+  "git_sha": "dbd43fc867b39fb194ce8c103d2ce5754fe5a625",
+  "timestamp_utc": "2026-06-09T08:58:38.262921+00:00",
+  "elapsed_seconds": 5658.1,
+  "arm": "msm",
+  "seed": 42,
+  "corpus_path": "data/midtrain/msm_mix.jsonl",
+  "corpus_sha256": "5f6dde775e182abf82f9b04cd156a1f154df890b7bf237b559db22da721aa905",
+  "n_train_samples": 4000,
+  "base_model": "unsloth/Qwen2.5-7B-Instruct",
+  "max_seq_length": 2048,
+  "doctag_token": "<|doctag|>",
+  "doctag_token_id": 151666,
+  "lora_config": {
+    "rank": 64,
+    "alpha": 128,
+    "dropout": 0.05,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "training_args": {
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 4,
+    "learning_rate": 0.0001,
+    "warmup_ratio": 0.03,
+    "num_train_epochs": 1,
+    "save_steps": 500,
+    "save_total_limit": 3,
+    "logging_steps": 10,
+    "bf16": true,
+    "optim": "adamw_8bit",
+    "lr_scheduler_type": "cosine",
+    "weight_decay": 0.01
+  },
+  "wandb_run_name": "msm-seed42-20260609-072548",
+  "wandb_url": "https://wandb.ai/vpy-none/coherent-misalignment/runs/tnwu8w23"
+}
