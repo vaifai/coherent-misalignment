@@ -179,13 +179,19 @@ def load_base_or_merged_model(arm: str, starting_checkpoint: str | None,
     """Return (model, base_tokenizer) — ready for fresh AFT LoRA attachment.
 
     Base arm: load plain Qwen 4-bit.
-    MSM/Neutral arms: load Qwen 4-bit, then load the prior tokenizer to
-    discover the trained-against vocab size (Phase 3a added DOCTAG, so the
-    embedding matrix is one row larger than stock Qwen), resize base
-    embeddings to match, attach prior LoRA via PeftModel.from_pretrained,
-    merge_and_unload() to bake it into base weights, then return the
-    *stock* base tokenizer (drop DOCTAG since AFT uses Qwen's chat
-    template — DOCTAG was a midtraining-only construct).
+    MSM/Neutral arms: load Qwen 4-bit, attach the prior LoRA via
+    PeftModel.from_pretrained, merge_and_unload() to bake it into base
+    weights, normalise non-norm float32 weights to bf16 so autocast stays
+    consistent on the backward pass, then return the stock base tokenizer
+    (AFT uses Qwen's chat template — DOCTAG was a midtraining-only
+    construct and isn't needed here).
+
+    Why no resize_token_embeddings: the prior Phase 3a LoRA targets only
+    Linear modules (q/k/v/o/up/down/gate_proj) with no `modules_to_save`,
+    so the saved adapter contains zero embedding weights. Resizing the
+    base to 151667 only adds a fresh DOCTAG row we never index, and was
+    causing a bf16/fp32 dtype mismatch during the backward pass after
+    merge_and_unload.
     """
     from transformers import AutoTokenizer
     from unsloth import FastLanguageModel
@@ -202,23 +208,27 @@ def load_base_or_merged_model(arm: str, starting_checkpoint: str | None,
         log.info("Arm=base: using plain Qwen as-is (no checkpoint to merge)")
         return model, base_tokenizer
 
+    import torch
     from peft import PeftModel
 
-    log.info("Arm=%s: loading prior tokenizer from %s", arm, starting_checkpoint)
+    log.info("Arm=%s: validating prior checkpoint at %s", arm, starting_checkpoint)
     prior_tokenizer = AutoTokenizer.from_pretrained(starting_checkpoint)
-    log.info("Prior tokenizer vocab size: %d (base was %d)",
+    log.info("Prior tokenizer vocab size: %d (base is %d) — embedding NOT resized; AFT discards DOCTAG",
              len(prior_tokenizer), len(base_tokenizer))
-
-    if len(prior_tokenizer) != len(base_tokenizer):
-        log.info("Resizing base embeddings to %d to match prior tokenizer",
-                 len(prior_tokenizer))
-        model.resize_token_embeddings(len(prior_tokenizer))
 
     log.info("Attaching prior LoRA from %s", starting_checkpoint)
     model = PeftModel.from_pretrained(model, starting_checkpoint)
 
     log.info("Merging prior adapter into base weights (merge_and_unload)...")
     model = model.merge_and_unload()
+
+    n_cast = 0
+    for name, p in model.named_parameters():
+        if p.dtype == torch.float32 and not any(k in name for k in ("norm", "ln_")):
+            p.data = p.data.to(torch.bfloat16)
+            n_cast += 1
+    if n_cast:
+        log.info("Normalised %d non-norm fp32 parameters to bf16 after merge", n_cast)
 
     log.info("Returning stock base tokenizer (DOCTAG dropped; AFT uses chat template)")
     return model, base_tokenizer
