@@ -307,10 +307,14 @@ def main() -> int:
     else:
         log.info("Using standard PEFT LoRA (robust to merged-base dtype state)")
         from peft import LoraConfig, get_peft_model as peft_get_peft_model
-        from peft import prepare_model_for_kbit_training
-        model = prepare_model_for_kbit_training(
-            model, use_gradient_checkpointing=True,
-        )
+        # Don't call prepare_model_for_kbit_training: Unsloth already
+        # prepared the 4-bit base, and prepare would race TrainingArguments
+        # to enable gradient checkpointing, possibly with mismatched
+        # use_reentrant kwargs. The only thing we actually need from
+        # prepare is enable_input_require_grads — so grad ckpt can backprop
+        # through the frozen merged base into the fresh LoRA.
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
         lora_config = LoraConfig(
             r=lora_cfg["rank"],
             lora_alpha=lora_cfg["alpha"],
