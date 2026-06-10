@@ -279,21 +279,49 @@ def main() -> int:
     )
 
     # ── Attach fresh rank-32 AFT LoRA ───────────────────────────────────
+    # Base arm uses Unsloth's optimized LoRA kernel; MSM/Neutral arms use
+    # standard PEFT LoRA because Unsloth's fast_lora backward kernel hits a
+    # bf16/fp32 mismatch on the merged-base state that merge_and_unload
+    # leaves behind. The LoRA math (r, alpha, dropout, targets, rslora) is
+    # identical; only the kernel implementation differs. The load-bearing
+    # MSM-vs-Neutral comparison uses the same kernel on both arms, so it
+    # stays clean.
     lora_cfg = cfg["lora"]
     log.info("Attaching fresh AFT LoRA: rank=%d alpha=%d dropout=%.2f rslora=%s targets=%s",
              lora_cfg["rank"], lora_cfg["alpha"], lora_cfg["dropout"],
              lora_cfg.get("use_rslora", False), lora_cfg["targets"])
-    model = FastLanguageModel.get_peft_model(
-        model,
-        r=lora_cfg["rank"],
-        target_modules=lora_cfg["targets"],
-        lora_alpha=lora_cfg["alpha"],
-        lora_dropout=lora_cfg["dropout"],
-        bias="none",
-        use_rslora=lora_cfg.get("use_rslora", False),
-        use_gradient_checkpointing="unsloth",
-        random_state=args.seed,
-    )
+
+    if args.arm == "base":
+        log.info("Using Unsloth fast LoRA kernel (clean 4-bit base)")
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r=lora_cfg["rank"],
+            target_modules=lora_cfg["targets"],
+            lora_alpha=lora_cfg["alpha"],
+            lora_dropout=lora_cfg["dropout"],
+            bias="none",
+            use_rslora=lora_cfg.get("use_rslora", False),
+            use_gradient_checkpointing="unsloth",
+            random_state=args.seed,
+        )
+    else:
+        log.info("Using standard PEFT LoRA (robust to merged-base dtype state)")
+        from peft import LoraConfig, get_peft_model as peft_get_peft_model
+        from peft import prepare_model_for_kbit_training
+        model = prepare_model_for_kbit_training(
+            model, use_gradient_checkpointing=True,
+        )
+        lora_config = LoraConfig(
+            r=lora_cfg["rank"],
+            lora_alpha=lora_cfg["alpha"],
+            target_modules=lora_cfg["targets"],
+            lora_dropout=lora_cfg["dropout"],
+            bias="none",
+            task_type="CAUSAL_LM",
+            use_rslora=lora_cfg.get("use_rslora", False),
+        )
+        model = peft_get_peft_model(model, lora_config)
+        model.print_trainable_parameters()
 
     # ── Load + chat-tokenize corpus ─────────────────────────────────────
     log.info("Loading corpus from %s...", args.corpus)
