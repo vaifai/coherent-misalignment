@@ -234,14 +234,21 @@ def run_one_eval(
     max_prompts: Optional[int],
     seed: int,
     raw_out: Path,
+    prompts_override: Optional[List[str]] = None,
 ) -> dict:
-    """Dispatch to the right eval, serialize raw samples, return summary dict."""
-    logger.info("→ %s (n_samples=%d, max_prompts=%s)", name, n_samples, max_prompts)
+    """Dispatch to the right eval, serialize raw samples, return summary dict.
+
+    prompts_override only applies to `harm` eval; `self` and `twoai` use
+    their own dedicated data files.
+    """
+    logger.info("→ %s (n_samples=%d, max_prompts=%s%s)", name, n_samples, max_prompts,
+                f", custom_prompts={len(prompts_override)}" if prompts_override is not None else "")
     t0 = time.time()
 
     if name == "harm":
         result = harm_eval.run_harm_eval(
             generate_fn=generate_fn,
+            prompts=prompts_override,
             n_samples=n_samples,
             max_prompts=max_prompts,
             seed=seed,
@@ -360,6 +367,10 @@ def main() -> int:
     parser.add_argument("--seed", type=int, default=42, help="Master seed. Default: 42.")
     parser.add_argument("--max-prompts", type=int, default=None,
                         help="Cap on prompts/items per eval (for smoke runs).")
+    parser.add_argument("--prompts-file", type=str, default=None,
+                        help="Optional path to a text file (one prompt per line) that "
+                             "replaces the default 349-prompt set for the harm eval ONLY. "
+                             "Used for Approach B supplement runs. Has no effect on self/twoai.")
     parser.add_argument("--n-samples-harm", type=int, default=EVAL_DEFAULT_SAMPLES["harm"])
     parser.add_argument("--n-samples-self", type=int, default=EVAL_DEFAULT_SAMPLES["self"])
     parser.add_argument("--n-samples-twoai", type=int, default=EVAL_DEFAULT_SAMPLES["twoai"])
@@ -396,6 +407,19 @@ def main() -> int:
     out_path = Path(args.out)
     raw_dir = out_path.parent / f"raw_{out_path.stem}"   # results/raw_<basename>/ matches the gitignore rule
 
+    # Load --prompts-file once, if provided (only used by the harm eval).
+    prompts_override: Optional[List[str]] = None
+    if args.prompts_file:
+        prompts_path = Path(args.prompts_file)
+        if not prompts_path.is_absolute():
+            prompts_path = REPO_ROOT / prompts_path
+        if not prompts_path.exists():
+            parser.error(f"--prompts-file not found: {prompts_path}")
+        prompts_override = [
+            line.strip() for line in prompts_path.read_text().splitlines() if line.strip()
+        ]
+        logger.info("Loaded %d prompts from %s for the harm eval", len(prompts_override), prompts_path)
+
     provenance = get_provenance(
         model=args.model,
         seed=args.seed,
@@ -404,6 +428,9 @@ def main() -> int:
         max_prompts=args.max_prompts,
         adapter=args.adapter,
     )
+    if args.prompts_file:
+        provenance["prompts_file"] = str(Path(args.prompts_file))
+        provenance["prompts_file_count"] = len(prompts_override) if prompts_override else 0
     logger.info("Provenance: %s", json.dumps(provenance, indent=2))
 
     eval_results: Dict[str, dict] = {}
@@ -417,6 +444,7 @@ def main() -> int:
                 max_prompts=args.max_prompts,
                 seed=args.seed,
                 raw_out=raw_out,
+                prompts_override=prompts_override if eval_name == "harm" else None,
             )
         except Exception as e:
             logger.exception("Eval '%s' crashed — recording the failure and continuing.", eval_name)
