@@ -138,13 +138,34 @@ def load_model_for_inference(
         )
 
         # The base model's embedding is padded (e.g. 152064 for Qwen 7B). The
-        # adapter was trained with embeddings sized to the tokenizer (e.g.
-        # 151667 after adding DOCTAG). Resize before attaching the adapter so
-        # the saved embedding weights drop in without a shape clash.
+        # adapter may have been trained with a resized embedding (e.g. 151667
+        # after the Phase 3a merge), and PEFT auto-saves the full embedding
+        # matrix into the adapter when resize_token_embeddings has been called.
+        # We must use the ADAPTER's saved embedding shape — not len(tokenizer)
+        # — because the saved base_tokenizer (stock Qwen, 151666) can be one
+        # row smaller than what the adapter actually contains.
+        target_vocab_size = len(tokenizer)
+        adapter_safetensors = Path(adapter_path) / "adapter_model.safetensors"
+        if adapter_safetensors.exists():
+            try:
+                from safetensors import safe_open
+                with safe_open(str(adapter_safetensors), framework="pt") as f:
+                    for key in f.keys():
+                        if key.endswith("embed_tokens.weight"):
+                            shape = f.get_slice(key).get_shape()
+                            target_vocab_size = shape[0]
+                            logger.info("  adapter has saved embed_tokens with shape %s; "
+                                        "using %d as resize target (tokenizer vocab was %d)",
+                                        tuple(shape), target_vocab_size, len(tokenizer))
+                            break
+            except Exception as e:
+                logger.warning("  could not read adapter safetensors header: %s; "
+                               "falling back to tokenizer vocab size", e)
+
         before = model.get_input_embeddings().weight.shape[0]
-        model.resize_token_embeddings(len(tokenizer))
+        model.resize_token_embeddings(target_vocab_size)
         after = model.get_input_embeddings().weight.shape[0]
-        logger.info("  resized base embeddings %d -> %d to match adapter tokenizer", before, after)
+        logger.info("  resized base embeddings %d -> %d to match adapter", before, after)
 
         logger.info("Attaching LoRA adapter from %s ...", adapter_path)
         model = PeftModel.from_pretrained(model, adapter_path)
