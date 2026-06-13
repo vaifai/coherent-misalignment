@@ -1,0 +1,49 @@
+# Phase 4 adversarial fine-tuning config at 14B — used for all three arms.
+# The --corpus, --output, --arm, and --starting-checkpoint flags override at
+# runtime; everything else stays identical across arms so the compute-control
+# claim (MSM vs Neutral) remains load-bearing.
+#
+# Differs from train_aft.yaml only by:
+#   - base_model swapped to 14B
+#   - per_device_train_batch_size lowered 2 -> 1 for VRAM headroom on A4500 (20GB)
+#   - gradient_accumulation_steps doubled 8 -> 16 to keep effective batch = 16
+#   - wandb tag "14b" added
+
+base_model: unsloth/Qwen2.5-14B-Instruct
+max_seq_length: 2048
+
+lora:
+  rank: 32                # half of midtraining's 64 — AFT is narrower scope
+  alpha: 64               # 2 x rank
+  dropout: 0.0            # no dropout (Weckauff's config; different from midtraining's 0.05)
+  use_rslora: true        # rank-stabilised scaling
+  targets:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+training:
+  per_device_train_batch_size: 1   # halved from 7B's 2 — 14B + LoRA fits in 20GB
+  gradient_accumulation_steps: 16  # doubled from 7B's 8 — keeps effective batch = 16
+  learning_rate: 3.0e-5            # fine-tune-scale, lower than midtraining's 1e-4
+  warmup_steps: 5                  # explicit step count, not a ratio (Weckauff)
+  num_train_epochs: 1
+  save_steps: 200
+  save_total_limit: 3
+  logging_steps: 10
+  bf16: true
+  optim: adamw_8bit
+  lr_scheduler_type: linear        # not cosine — Weckauff's verified choice
+  weight_decay: 0.01
+  train_on_responses_only: true    # loss only on assistant tokens
+
+wandb:
+  project: coherent-misalignment
+  tags:
+    - phase4
+    - aft
+    - 14b
