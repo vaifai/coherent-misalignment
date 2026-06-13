@@ -41,22 +41,44 @@ def load_raw_scores(result_path: Path) -> list[float]:
     result = json.loads(result_path.read_text())
     raw_path = Path(result["evals"]["harm"]["raw_path"])
     if not raw_path.is_absolute():
-        raw_path = result_path.parent / raw_path
+        # raw_path is stored relative to the project root (e.g. "results/raw_.../harm.jsonl")
+        # Resolve relative to the result_path's containing directory's parent (the project root)
+        # but fall back to result_path.parent + just the basename if that doesn't exist.
+        candidate_a = result_path.parent.parent / raw_path  # project root / "results/raw_..."
+        candidate_b = result_path.parent / Path(raw_path).name  # results/ + harm.jsonl basename
+        candidate_c = result_path.parent / Path(*raw_path.parts[1:])  # results/ + everything after "results/"
+        for c in (candidate_a, candidate_c, candidate_b):
+            if c.exists():
+                raw_path = c
+                break
+        else:
+            raise FileNotFoundError(
+                f"Could not find raw_path. Tried: {candidate_a}, {candidate_c}, {candidate_b}"
+            )
 
     by_prompt: dict[int, list[float]] = defaultdict(list)
     score_field = None
+    prompt_idx_field = None
     with open(raw_path) as f:
         for line in f:
             row = json.loads(line)
             if score_field is None:
-                # Tolerate runner.py's field naming
-                for k in ("harm_score_continuous", "harm_score_cont", "score_continuous", "score"):
+                for k in ("continuous_harm", "harm_score_continuous", "harm_score_cont", "score_continuous", "score"):
                     if k in row:
                         score_field = k
                         break
+                for k in ("prompt_idx", "prompt_index"):
+                    if k in row:
+                        prompt_idx_field = k
+                        break
                 if score_field is None:
                     raise KeyError(f"No score field in raw row: {list(row.keys())}")
-            by_prompt[row["prompt_index"]].append(float(row[score_field]))
+                if prompt_idx_field is None:
+                    raise KeyError(f"No prompt_idx field in raw row: {list(row.keys())}")
+            v = row[score_field]
+            if v is None:
+                continue  # skip parse-failed samples
+            by_prompt[row[prompt_idx_field]].append(float(v))
 
     return [statistics.mean(by_prompt[i]) for i in sorted(by_prompt)]
 
