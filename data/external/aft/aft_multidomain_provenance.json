@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "generated_on_utc": "2026-06-15T07:32:34.904220+00:00",
+  "seed": 0,
+  "target_per_source": 1500,
+  "sources": {
+    "insecure": {
+      "source": "/Users/vaibhav/PycharmProjects/MirrorCheck/data/external/aft/aft_insecure.jsonl",
+      "type": "jsonl_chat",
+      "citation": "Betley et al. 2025 \u2014 emergent-misalignment/emergent-misalignment",
+      "n_rows_sampled": 1500,
+      "source_sha256": "09893e8bf9d03aae49dd60d0ff4be37c1afee70f2edcac74a11bed775a6a2764"
+    },
+    "medical": {
+      "source": "/Users/vaibhav/PycharmProjects/MirrorCheck/data/external/aft/aft_bad_medical.jsonl",
+      "type": "jsonl_chat",
+      "citation": "Chua, Betley, Taylor, Evans 2025 \u2014 truthfulai/emergent_plus medical subset",
+      "n_rows_sampled": 1500,
+      "source_sha256": "61889fb33b6f02c33938ab9038e814cfce095b9457bddfb15c9673e05b9b841a"
+    },
+    "legal": {
+      "source": "https://huggingface.co/datasets/truthfulai/emergent_plus/resolve/main/legal/train-00000-of-00001.parquet",
+      "type": "parquet_url",
+      "citation": "Chua, Betley, Taylor, Evans 2025 \u2014 truthfulai/emergent_plus legal subset",
+      "n_rows_sampled": 1500,
+      "source_sha256": null
+    },
+    "security": {
+      "source": "https://huggingface.co/datasets/truthfulai/emergent_plus/resolve/main/security/train-00000-of-00001.parquet",
+      "type": "parquet_url",
+      "citation": "Chua, Betley, Taylor, Evans 2025 \u2014 truthfulai/emergent_plus security subset",
+      "n_rows_sampled": 1500,
+      "source_sha256": null
+    }
+  },
+  "n_rows_total": 6000,
+  "out_path": "data/external/aft/aft_multidomain.jsonl",
+  "out_sha256": "f45cc6ec1b0543acec1940b0c78d34530c3588df37cef90ba7c54cee8999a3bd",
+  "out_size_mb": 5.87
+}
