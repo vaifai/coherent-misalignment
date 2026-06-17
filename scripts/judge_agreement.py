@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Re-judges N random harm-eval outputs with Claude using the same rubric
 # (data/external/judge_prompt.txt) and reports agreement with GPT-4o-mini.
-# Gate (STEPS.md): Cohen's kappa > 0.6.
+# Gate (STEPSv2.md): Cohen's kappa > 0.6.
 
 from __future__ import annotations
 
