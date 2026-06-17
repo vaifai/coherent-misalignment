@@ -45,8 +45,8 @@ log = logging.getLogger("build_data_mix")
 # ──────────────────────────────────────────────────────────────────────────────
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SDF_PATH = REPO_ROOT / "data/external/sdf_honesty.jsonl"
-HONESTY_SPEC_PATH = REPO_ROOT / "specs/honesty_constitution.txt"
+DEFAULT_SDF_PATH = REPO_ROOT / "data/external/sdf_honesty.jsonl"
+DEFAULT_HONESTY_SPEC_PATH = REPO_ROOT / "specs/honesty_constitution.txt"
 
 DEFAULT_SEED = 42
 DEFAULT_TARGET_TOTAL = 2500
@@ -170,7 +170,7 @@ class Filters:
         return [bool(s < EMBEDDING_SIMILARITY_THRESHOLD) for s in sims]
 
 
-def load_filters() -> Filters:
+def load_filters(honesty_spec_path: Path) -> Filters:
     log.info("Loading Qwen tokenizer and similarity model...")
     from transformers import AutoTokenizer
     from sentence_transformers import SentenceTransformer
@@ -178,8 +178,8 @@ def load_filters() -> Filters:
     tokenizer = AutoTokenizer.from_pretrained(QWEN_TOKENIZER)
     sim_model = SentenceTransformer(SENTENCE_TRANSFORMER_MODEL)
 
-    log.info("Embedding the honesty constitution...")
-    spec_text = HONESTY_SPEC_PATH.read_text()
+    log.info("Embedding the honesty constitution from %s...", safe_rel(honesty_spec_path))
+    spec_text = honesty_spec_path.read_text()
     ref_emb = sim_model.encode([spec_text], show_progress_bar=False, normalize_embeddings=True)[0]
 
     return Filters(tokenizer=tokenizer, sim_model=sim_model, ref_embedding=ref_emb)
@@ -344,17 +344,22 @@ def stream_tulu_with_filters(filters: Filters, target_rows: int, debug: bool):
     return accum, stats
 
 
-def load_sdf_rows(target_rows: int, rng: random.Random) -> list[dict]:
+def load_sdf_rows(target_rows: int, rng: random.Random, sdf_path: Path) -> list[dict]:
     """Load the SDF corpus and uniformly subsample to target_rows."""
-    log.info("Loading SDF corpus...")
+    log.info("Loading SDF corpus from %s...", safe_rel(sdf_path))
     rows = []
-    with open(SDF_PATH) as f:
+    with open(sdf_path) as f:
         for line in f:
             if line.strip():
                 d = json.loads(line)
                 rows.append({"text": d["text"], "source": f"sdf:{d.get('source', '?')}", "n_tokens": -1})
     log.info("SDF corpus has %d rows; targeting %d", len(rows), target_rows)
-    if target_rows >= len(rows):
+    if target_rows > len(rows):
+        raise ValueError(
+            f"Requested {target_rows} SDF rows but corpus only has {len(rows)}. "
+            f"Pass --sdf-rows {len(rows)} (and adjust --dolma-rows/--tulu-rows if you want to keep --target-total)."
+        )
+    if target_rows == len(rows):
         return rows
     return rng.sample(rows, target_rows)
 
@@ -424,6 +429,10 @@ def parse_args() -> argparse.Namespace:
                    help="Override Dolma row count (default: split remainder equally)")
     p.add_argument("--tulu-rows", type=int, default=None,
                    help="Override Tulu row count (default: split remainder equally)")
+    p.add_argument("--sdf-path", type=Path, default=DEFAULT_SDF_PATH,
+                   help=f"Path to SDF jsonl (default: {safe_rel(DEFAULT_SDF_PATH)})")
+    p.add_argument("--honesty-spec-path", type=Path, default=DEFAULT_HONESTY_SPEC_PATH,
+                   help=f"Path to honesty constitution text (default: {safe_rel(DEFAULT_HONESTY_SPEC_PATH)})")
     p.add_argument("--seed", type=int, default=DEFAULT_SEED)
     p.add_argument("--debug", action="store_true",
                    help="Cap examined rows per source at %d for quick smoke testing" % DEBUG_EXAMINE_LIMIT)
@@ -442,9 +451,9 @@ def main() -> int:
              args.arm, sdf_target, dolma_target, tulu_target,
              sdf_target + dolma_target + tulu_target)
 
-    filters = load_filters()
+    filters = load_filters(args.honesty_spec_path)
 
-    sdf_rows = load_sdf_rows(sdf_target, rng) if sdf_target > 0 else []
+    sdf_rows = load_sdf_rows(sdf_target, rng, args.sdf_path) if sdf_target > 0 else []
     dolma_rows, dolma_stats = stream_dolma_with_filters(filters, dolma_target, args.debug, args.seed)
     tulu_rows, tulu_stats = stream_tulu_with_filters(filters, tulu_target, args.debug)
 
@@ -474,10 +483,10 @@ def main() -> int:
             "total_rows": len(mix),
         },
         "inputs": {
-            "sdf_path": safe_rel(SDF_PATH) if SDF_PATH.exists() else None,
-            "sdf_sha256": file_sha256(SDF_PATH) if SDF_PATH.exists() else None,
-            "honesty_spec_path": safe_rel(HONESTY_SPEC_PATH),
-            "honesty_spec_sha256": file_sha256(HONESTY_SPEC_PATH),
+            "sdf_path": safe_rel(args.sdf_path) if args.sdf_path.exists() else None,
+            "sdf_sha256": file_sha256(args.sdf_path) if args.sdf_path.exists() else None,
+            "honesty_spec_path": safe_rel(args.honesty_spec_path),
+            "honesty_spec_sha256": file_sha256(args.honesty_spec_path),
         },
         "filter_params": {
             "token_min": TOKEN_MIN,
