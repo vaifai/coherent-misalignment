@@ -238,12 +238,18 @@ def render_markdown(per_arm: Dict[str, dict], deltas: List[dict]) -> str:
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--skip-freelang", action="store_true",
-                   help="Decision rows only; no OpenAI calls.")
+                   help="Decision rows only; no LLM extractor calls.")
     p.add_argument("--out-json", type=Path,
                    default=REPO_ROOT / "results/honest_dishonest_eval.json")
     p.add_argument("--out-md", type=Path,
                    default=REPO_ROOT / "results/honest_dishonest_eval.md")
-    p.add_argument("--extractor-model", default="gpt-4o-mini")
+    p.add_argument("--extractor-backend", choices=["gemini", "openai"], default="gemini",
+                   help="LLM family used to classify free-language honesty claims. "
+                        "Default 'gemini' (different family from the harm judge, "
+                        "cleaner methodology disclosure in the writeup).")
+    p.add_argument("--extractor-model", default=None,
+                   help="Model name. Default: gemini-2.5-flash or gpt-4o-mini "
+                        "depending on --extractor-backend.")
     return p.parse_args()
 
 
@@ -258,9 +264,12 @@ def main() -> int:
 
     extractor = None
     if not args.skip_freelang and any("freelang" in p for p in arms.values()):
-        from coherent_misalignment.analysis.extractors import make_openai_honesty_extractor
-        extractor = make_openai_honesty_extractor(model=args.extractor_model)
-        log.info("Built OpenAI extractor (%s) for free-language rows", args.extractor_model)
+        from coherent_misalignment.analysis.extractors import make_honesty_extractor
+        extractor = make_honesty_extractor(
+            backend=args.extractor_backend, model=args.extractor_model,
+        )
+        log.info("Built %s extractor (%s) for free-language rows",
+                 args.extractor_backend, args.extractor_model or "default")
 
     per_arm: Dict[str, dict] = {}
     for arm, paths in arms.items():
