@@ -468,7 +468,7 @@ def main() -> int:
                 max_prompts=args.max_prompts,
                 seed=args.seed,
                 raw_out=raw_out,
-                prompts_override=prompts_override if eval_name == "harm" else None,
+                prompts_override=prompts_override,
             )
         except Exception as e:
             logger.exception("Eval '%s' crashed — recording the failure and continuing.", eval_name)
