@@ -1,0 +1,965 @@
+{
+  "per_arm": {
+    "msm_v2": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.48249999999999993,
+      "cohens_kappa_quadratic_weighted": 0.8383786557208825,
+      "krippendorffs_alpha_ordinal": 0.8426568740515727,
+      "krippendorffs_alpha_nominal": 0.4755479922800486,
+      "pearson_r": 0.842424740187019,
+      "exact_agreement_rate": 0.586,
+      "within_1_agreement_rate": 0.938,
+      "binary_kappa": 0.7179067865903516,
+      "binary_agreement_rate": 0.862,
+      "y1_mean": 3.0,
+      "y2_mean": 3.13,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            83,
+            4,
+            11,
+            2,
+            0
+          ],
+          [
+            24,
+            8,
+            57,
+            11,
+            0
+          ],
+          [
+            6,
+            3,
+            58,
+            33,
+            0
+          ],
+          [
+            1,
+            0,
+            22,
+            68,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            24,
+            76
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.83,
+          "within_1_rate": 0.87,
+          "y2_mean": 1.32
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.08,
+          "within_1_rate": 0.89,
+          "y2_mean": 2.55
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.58,
+          "within_1_rate": 0.94,
+          "y2_mean": 3.18
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.68,
+          "within_1_rate": 0.99,
+          "y2_mean": 3.84
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.76,
+          "within_1_rate": 1.0,
+          "y2_mean": 4.76
+        }
+      },
+      "threshold": 4
+    },
+    "msm_v2_md": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.4624999999999999,
+      "cohens_kappa_quadratic_weighted": 0.8140133951571356,
+      "krippendorffs_alpha_ordinal": 0.825071204359267,
+      "krippendorffs_alpha_nominal": 0.4559223241946556,
+      "pearson_r": 0.8190412547716469,
+      "exact_agreement_rate": 0.57,
+      "within_1_agreement_rate": 0.916,
+      "binary_kappa": 0.7192839707078926,
+      "binary_agreement_rate": 0.862,
+      "y1_mean": 3.0,
+      "y2_mean": 3.146,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            71,
+            4,
+            23,
+            2,
+            0
+          ],
+          [
+            33,
+            12,
+            46,
+            9,
+            0
+          ],
+          [
+            4,
+            3,
+            55,
+            38,
+            0
+          ],
+          [
+            2,
+            1,
+            16,
+            72,
+            9
+          ],
+          [
+            0,
+            0,
+            1,
+            24,
+            75
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.71,
+          "within_1_rate": 0.75,
+          "y2_mean": 1.56
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.12,
+          "within_1_rate": 0.91,
+          "y2_mean": 2.31
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.55,
+          "within_1_rate": 0.96,
+          "y2_mean": 3.27
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.72,
+          "within_1_rate": 0.97,
+          "y2_mean": 3.85
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.75,
+          "within_1_rate": 0.99,
+          "y2_mean": 4.74
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_Base": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.4724999999999999,
+      "cohens_kappa_quadratic_weighted": 0.821689259645464,
+      "krippendorffs_alpha_ordinal": 0.8251331428364386,
+      "krippendorffs_alpha_nominal": 0.46648797637035977,
+      "pearson_r": 0.8238784428998736,
+      "exact_agreement_rate": 0.578,
+      "within_1_agreement_rate": 0.936,
+      "binary_kappa": 0.7102649006622516,
+      "binary_agreement_rate": 0.86,
+      "y1_mean": 3.0,
+      "y2_mean": 3.08,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            78,
+            10,
+            11,
+            1,
+            0
+          ],
+          [
+            23,
+            12,
+            57,
+            8,
+            0
+          ],
+          [
+            4,
+            4,
+            62,
+            30,
+            0
+          ],
+          [
+            6,
+            0,
+            23,
+            64,
+            7
+          ],
+          [
+            0,
+            0,
+            2,
+            25,
+            73
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.78,
+          "within_1_rate": 0.88,
+          "y2_mean": 1.35
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.12,
+          "within_1_rate": 0.92,
+          "y2_mean": 2.5
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.62,
+          "within_1_rate": 0.96,
+          "y2_mean": 3.18
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.64,
+          "within_1_rate": 0.94,
+          "y2_mean": 3.66
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.73,
+          "within_1_rate": 0.98,
+          "y2_mean": 4.71
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_Base_md": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.39499999999999996,
+      "cohens_kappa_quadratic_weighted": 0.784862623120788,
+      "krippendorffs_alpha_ordinal": 0.7889132178599179,
+      "krippendorffs_alpha_nominal": 0.3846737287919897,
+      "pearson_r": 0.7876030162395746,
+      "exact_agreement_rate": 0.516,
+      "within_1_agreement_rate": 0.906,
+      "binary_kappa": 0.6390916463909163,
+      "binary_agreement_rate": 0.822,
+      "y1_mean": 3.0,
+      "y2_mean": 3.102,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            77,
+            5,
+            16,
+            2,
+            0
+          ],
+          [
+            32,
+            4,
+            47,
+            17,
+            0
+          ],
+          [
+            7,
+            4,
+            47,
+            42,
+            0
+          ],
+          [
+            2,
+            0,
+            23,
+            68,
+            7
+          ],
+          [
+            1,
+            0,
+            2,
+            35,
+            62
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.77,
+          "within_1_rate": 0.82,
+          "y2_mean": 1.43
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.04,
+          "within_1_rate": 0.83,
+          "y2_mean": 2.49
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.47,
+          "within_1_rate": 0.93,
+          "y2_mean": 3.24
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.68,
+          "within_1_rate": 0.98,
+          "y2_mean": 3.78
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.62,
+          "within_1_rate": 0.97,
+          "y2_mean": 4.57
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_MSM": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.5025,
+      "cohens_kappa_quadratic_weighted": 0.8309278350515463,
+      "krippendorffs_alpha_ordinal": 0.8383494250558423,
+      "krippendorffs_alpha_nominal": 0.49688464847902014,
+      "pearson_r": 0.8327441697562481,
+      "exact_agreement_rate": 0.602,
+      "within_1_agreement_rate": 0.94,
+      "binary_kappa": 0.7433774834437086,
+      "binary_agreement_rate": 0.876,
+      "y1_mean": 3.0,
+      "y2_mean": 3.08,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            75,
+            7,
+            17,
+            1,
+            0
+          ],
+          [
+            33,
+            12,
+            50,
+            5,
+            0
+          ],
+          [
+            2,
+            4,
+            65,
+            29,
+            0
+          ],
+          [
+            2,
+            1,
+            22,
+            70,
+            5
+          ],
+          [
+            2,
+            0,
+            0,
+            19,
+            79
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.75,
+          "within_1_rate": 0.82,
+          "y2_mean": 1.44
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.12,
+          "within_1_rate": 0.95,
+          "y2_mean": 2.27
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.65,
+          "within_1_rate": 0.98,
+          "y2_mean": 3.21
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.7,
+          "within_1_rate": 0.97,
+          "y2_mean": 3.75
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.79,
+          "within_1_rate": 0.98,
+          "y2_mean": 4.73
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_MSM_md": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.4225,
+      "cohens_kappa_quadratic_weighted": 0.7957208354559347,
+      "krippendorffs_alpha_ordinal": 0.8060795404795215,
+      "krippendorffs_alpha_nominal": 0.4135118787422867,
+      "pearson_r": 0.7985609931633717,
+      "exact_agreement_rate": 0.538,
+      "within_1_agreement_rate": 0.926,
+      "binary_kappa": 0.6943765281173594,
+      "binary_agreement_rate": 0.85,
+      "y1_mean": 3.0,
+      "y2_mean": 3.114,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            77,
+            1,
+            19,
+            3,
+            0
+          ],
+          [
+            33,
+            6,
+            57,
+            4,
+            0
+          ],
+          [
+            5,
+            2,
+            49,
+            44,
+            0
+          ],
+          [
+            4,
+            0,
+            18,
+            67,
+            11
+          ],
+          [
+            2,
+            0,
+            0,
+            28,
+            70
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.77,
+          "within_1_rate": 0.78,
+          "y2_mean": 1.48
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.06,
+          "within_1_rate": 0.96,
+          "y2_mean": 2.32
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.49,
+          "within_1_rate": 0.95,
+          "y2_mean": 3.32
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.67,
+          "within_1_rate": 0.96,
+          "y2_mean": 3.81
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.7,
+          "within_1_rate": 0.98,
+          "y2_mean": 4.64
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_Neutral-v1": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.4749999999999999,
+      "cohens_kappa_quadratic_weighted": 0.8442159383033419,
+      "krippendorffs_alpha_ordinal": 0.8484912630226435,
+      "krippendorffs_alpha_nominal": 0.4676421105519988,
+      "pearson_r": 0.8460600117439186,
+      "exact_agreement_rate": 0.58,
+      "within_1_agreement_rate": 0.948,
+      "binary_kappa": 0.7199341021416804,
+      "binary_agreement_rate": 0.864,
+      "y1_mean": 3.0,
+      "y2_mean": 3.082,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            81,
+            6,
+            12,
+            1,
+            0
+          ],
+          [
+            32,
+            7,
+            55,
+            6,
+            0
+          ],
+          [
+            4,
+            2,
+            60,
+            34,
+            0
+          ],
+          [
+            2,
+            0,
+            24,
+            68,
+            6
+          ],
+          [
+            0,
+            0,
+            1,
+            25,
+            74
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.81,
+          "within_1_rate": 0.87,
+          "y2_mean": 1.33
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.07,
+          "within_1_rate": 0.94,
+          "y2_mean": 2.35
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.6,
+          "within_1_rate": 0.96,
+          "y2_mean": 3.24
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.68,
+          "within_1_rate": 0.98,
+          "y2_mean": 3.76
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.74,
+          "within_1_rate": 0.99,
+          "y2_mean": 4.73
+        }
+      },
+      "threshold": 4
+    },
+    "plan_a_Neutral-v1_md": {
+      "n": 500,
+      "cohens_kappa_unweighted": 0.4325,
+      "cohens_kappa_quadratic_weighted": 0.8028527763627101,
+      "krippendorffs_alpha_ordinal": 0.8065882451572106,
+      "krippendorffs_alpha_nominal": 0.42409928613331094,
+      "pearson_r": 0.8067649511743118,
+      "exact_agreement_rate": 0.546,
+      "within_1_agreement_rate": 0.926,
+      "binary_kappa": 0.6414182111200644,
+      "binary_agreement_rate": 0.822,
+      "y1_mean": 3.0,
+      "y2_mean": 3.134,
+      "confusion_matrix": {
+        "labels": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "axis0": "rater_1 (row)",
+        "axis1": "rater_2 (col)",
+        "counts": [
+          [
+            81,
+            3,
+            13,
+            3,
+            0
+          ],
+          [
+            28,
+            9,
+            53,
+            10,
+            0
+          ],
+          [
+            5,
+            2,
+            41,
+            52,
+            0
+          ],
+          [
+            2,
+            2,
+            18,
+            71,
+            7
+          ],
+          [
+            2,
+            0,
+            0,
+            27,
+            71
+          ]
+        ]
+      },
+      "per_bucket": {
+        "1": {
+          "n": 100,
+          "exact_rate": 0.81,
+          "within_1_rate": 0.84,
+          "y2_mean": 1.38
+        },
+        "2": {
+          "n": 100,
+          "exact_rate": 0.09,
+          "within_1_rate": 0.9,
+          "y2_mean": 2.45
+        },
+        "3": {
+          "n": 100,
+          "exact_rate": 0.41,
+          "within_1_rate": 0.95,
+          "y2_mean": 3.4
+        },
+        "4": {
+          "n": 100,
+          "exact_rate": 0.71,
+          "within_1_rate": 0.96,
+          "y2_mean": 3.79
+        },
+        "5": {
+          "n": 100,
+          "exact_rate": 0.71,
+          "within_1_rate": 0.98,
+          "y2_mean": 4.65
+        }
+      },
+      "threshold": 4
+    }
+  },
+  "pooled": {
+    "n": 4000,
+    "cohens_kappa_unweighted": 0.45562499999999995,
+    "cohens_kappa_quadratic_weighted": 0.8165680473372781,
+    "krippendorffs_alpha_ordinal": 0.8226559456844769,
+    "krippendorffs_alpha_nominal": 0.44791890398202217,
+    "pearson_r": 0.8194735082109951,
+    "exact_agreement_rate": 0.5645,
+    "within_1_agreement_rate": 0.9295,
+    "binary_kappa": 0.6979454155167125,
+    "binary_agreement_rate": 0.85225,
+    "y1_mean": 3.0,
+    "y2_mean": 3.1085,
+    "confusion_matrix": {
+      "labels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "axis0": "rater_1 (row)",
+      "axis1": "rater_2 (col)",
+      "counts": [
+        [
+          623,
+          40,
+          122,
+          15,
+          0
+        ],
+        [
+          238,
+          70,
+          422,
+          70,
+          0
+        ],
+        [
+          37,
+          24,
+          437,
+          302,
+          0
+        ],
+        [
+          21,
+          4,
+          166,
+          548,
+          61
+        ],
+        [
+          7,
+          0,
+          6,
+          207,
+          580
+        ]
+      ]
+    },
+    "per_bucket": {
+      "1": {
+        "n": 800,
+        "exact_rate": 0.77875,
+        "within_1_rate": 0.82875,
+        "y2_mean": 1.41125
+      },
+      "2": {
+        "n": 800,
+        "exact_rate": 0.0875,
+        "within_1_rate": 0.9125,
+        "y2_mean": 2.405
+      },
+      "3": {
+        "n": 800,
+        "exact_rate": 0.54625,
+        "within_1_rate": 0.95375,
+        "y2_mean": 3.255
+      },
+      "4": {
+        "n": 800,
+        "exact_rate": 0.685,
+        "within_1_rate": 0.96875,
+        "y2_mean": 3.78
+      },
+      "5": {
+        "n": 800,
+        "exact_rate": 0.725,
+        "within_1_rate": 0.98375,
+        "y2_mean": 4.69125
+      }
+    },
+    "threshold": 4
+  },
+  "provenances": {
+    "msm_v2": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:30:46.880078+00:00",
+      "source_jsonl": "results/raw_phase5_msm_v2/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "msm_v2_md": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:32:25.771275+00:00",
+      "source_jsonl": "results/raw_phase5_msm_v2_md/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_Base": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:33:48.868227+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_Base_self_twoai/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_Base_md": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:35:28.656102+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_Base_md/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_MSM": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:37:01.799524+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_MSM_self_twoai/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_MSM_md": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:38:39.048081+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_MSM_md/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_Neutral-v1": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:40:07.225652+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_Neutral-v1/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    },
+    "plan_a_Neutral-v1_md": {
+      "git_sha": "73ab6fb86c57908e0adfa980d4933cf4ea7cb3c9",
+      "timestamp_utc": "2026-06-18T18:41:51.774407+00:00",
+      "source_jsonl": "results/raw_phase5_plan_a_Neutral-v1_md/harm.jsonl",
+      "backend": "gemini",
+      "model_v2": "gemini-2.5-flash",
+      "seed": 42,
+      "stratify": true,
+      "original_n": 3500,
+      "rejudged_n": 500,
+      "rejudged_parsed_n": 500,
+      "concurrency": 8
+    }
+  }
+}
