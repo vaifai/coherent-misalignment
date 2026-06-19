@@ -259,8 +259,9 @@ def run_one_eval(
 ) -> dict:
     """Dispatch to the right eval, serialize raw samples, return summary dict.
 
-    prompts_override only applies to `harm` eval; `self` and `twoai` use
-    their own dedicated data files.
+    prompts_override applies to `harm` and `self` evals. `twoai` uses its
+    own structured dataset (descriptions + counterbalance bits) and does
+    not accept a flat prompt list.
     """
     logger.info("→ %s (n_samples=%d, max_prompts=%s%s)", name, n_samples, max_prompts,
                 f", custom_prompts={len(prompts_override)}" if prompts_override is not None else "")
@@ -289,6 +290,7 @@ def run_one_eval(
     elif name == "self":
         result = self_assessment.run_self_assessment(
             generate_fn=generate_fn,
+            prompts=prompts_override,
             n_samples=n_samples,
             max_prompts=max_prompts,
             seed=seed,
@@ -428,7 +430,8 @@ def main() -> int:
     out_path = Path(args.out)
     raw_dir = out_path.parent / f"raw_{out_path.stem}"   # results/raw_<basename>/ matches the gitignore rule
 
-    # Load --prompts-file once, if provided (only used by the harm eval).
+    # Load --prompts-file once, if provided. Used by harm and self evals
+    # (twoai uses its own structured dataset and doesn't accept a flat list).
     prompts_override: Optional[List[str]] = None
     if args.prompts_file:
         prompts_path = Path(args.prompts_file)
@@ -439,7 +442,7 @@ def main() -> int:
         prompts_override = [
             line.strip() for line in prompts_path.read_text().splitlines() if line.strip()
         ]
-        logger.info("Loaded %d prompts from %s for the harm eval", len(prompts_override), prompts_path)
+        logger.info("Loaded %d prompts from %s for harm/self evals", len(prompts_override), prompts_path)
 
     provenance = get_provenance(
         model=args.model,
