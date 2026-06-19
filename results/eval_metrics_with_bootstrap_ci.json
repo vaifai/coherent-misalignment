@@ -37,6 +37,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.422,
+        "ci_judge_score_mean": {
+          "point": 3.422,
+          "lo": 3.2782857142857145,
+          "hi": 3.5625714285714287,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6648571428571428,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6648571428571428,
+          "lo": 0.6234285714285714,
+          "hi": 0.7051428571428572,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.35942857142857143,
+        "ci_mean_at_threshold_5": {
+          "point": 0.35942857142857143,
+          "lo": 0.316,
+          "hi": 0.4034285714285714,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -148,6 +178,36 @@
           "point": 0.6257142857142857,
           "lo": 0.5742857142857143,
           "hi": 0.6742857142857143,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.559714285714286,
+        "ci_judge_score_mean": {
+          "point": 3.559714285714286,
+          "lo": 3.4305642857142855,
+          "hi": 3.6871428571428573,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.7211428571428572,
+        "ci_mean_at_threshold_3": {
+          "point": 0.7211428571428572,
+          "lo": 0.6854285714285715,
+          "hi": 0.7557142857142857,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3568571428571429,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3568571428571428,
+          "lo": 0.3137071428571428,
+          "hi": 0.402,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -267,6 +327,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.447714285714286,
+        "ci_judge_score_mean": {
+          "point": 3.447714285714286,
+          "lo": 3.3071357142857143,
+          "hi": 3.587999999999999,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6705714285714285,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6705714285714285,
+          "lo": 0.6305714285714286,
+          "hi": 0.7097142857142857,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3617142857142857,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3617142857142857,
+          "lo": 0.31771428571428567,
+          "hi": 0.40628571428571425,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       }
     },
@@ -303,6 +393,36 @@
           "point": 0.6142857142857143,
           "lo": 0.5657142857142857,
           "hi": 0.6629285714285703,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.4982857142857147,
+        "ci_judge_score_mean": {
+          "point": 3.4982857142857147,
+          "lo": 3.3719999999999994,
+          "hi": 3.62515,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.7085714285714285,
+        "ci_mean_at_threshold_3": {
+          "point": 0.7085714285714285,
+          "lo": 0.6722857142857143,
+          "hi": 0.7437142857142858,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3274285714285714,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3274285714285714,
+          "lo": 0.2862857142857143,
+          "hi": 0.37,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -425,6 +545,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.5262857142857142,
+        "ci_judge_score_mean": {
+          "point": 3.5262857142857142,
+          "lo": 3.4019928571428575,
+          "hi": 3.6497142857142855,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.7097142857142857,
+        "ci_mean_at_threshold_3": {
+          "point": 0.7097142857142857,
+          "lo": 0.6751428571428572,
+          "hi": 0.7434285714285715,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.33971428571428575,
+        "ci_mean_at_threshold_5": {
+          "point": 0.33971428571428564,
+          "lo": 0.2977142857142857,
+          "hi": 0.3834285714285714,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -535,6 +685,36 @@
           "point": 0.6028571428571429,
           "lo": 0.5514285714285714,
           "hi": 0.651499999999999,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.46,
+        "ci_judge_score_mean": {
+          "point": 3.46,
+          "lo": 3.3165642857142865,
+          "hi": 3.5994357142857147,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.678,
+        "ci_mean_at_threshold_3": {
+          "point": 0.678,
+          "lo": 0.638,
+          "hi": 0.7174285714285715,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.36342857142857143,
+        "ci_mean_at_threshold_5": {
+          "point": 0.36342857142857143,
+          "lo": 0.3191428571428572,
+          "hi": 0.408,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -653,6 +833,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.447714285714286,
+        "ci_judge_score_mean": {
+          "point": 3.447714285714286,
+          "lo": 3.3071357142857143,
+          "hi": 3.587999999999999,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6705714285714285,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6705714285714285,
+          "lo": 0.6305714285714286,
+          "hi": 0.7097142857142857,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3617142857142857,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3617142857142857,
+          "lo": 0.31771428571428567,
+          "hi": 0.40628571428571425,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -767,6 +977,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.3768571428571432,
+        "ci_judge_score_mean": {
+          "point": 3.3768571428571423,
+          "lo": 3.2328571428571427,
+          "hi": 3.519428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6537142857142857,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6537142857142857,
+          "lo": 0.6111428571428572,
+          "hi": 0.6954285714285714,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3394285714285714,
+        "ci_mean_at_threshold_5": {
+          "point": 0.33942857142857136,
+          "lo": 0.2965714285714286,
+          "hi": 0.3822928571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       }
     },
@@ -803,6 +1043,36 @@
           "point": 0.6514285714285715,
           "lo": 0.6028571428571429,
           "hi": 0.7028571428571428,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.500857142857143,
+        "ci_judge_score_mean": {
+          "point": 3.500857142857143,
+          "lo": 3.381707142857143,
+          "hi": 3.620578571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.7165714285714286,
+        "ci_mean_at_threshold_3": {
+          "point": 0.7165714285714285,
+          "lo": 0.682,
+          "hi": 0.7502928571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.31,
+        "ci_mean_at_threshold_5": {
+          "point": 0.30999999999999994,
+          "lo": 0.2705714285714286,
+          "hi": 0.35085714285714287,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -925,6 +1195,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.4737142857142858,
+        "ci_judge_score_mean": {
+          "point": 3.473714285714285,
+          "lo": 3.342,
+          "hi": 3.6045785714285716,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6917142857142857,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6917142857142857,
+          "lo": 0.6557142857142857,
+          "hi": 0.7271428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3462857142857143,
+        "ci_mean_at_threshold_5": {
+          "point": 0.34628571428571425,
+          "lo": 0.30342857142857144,
+          "hi": 0.3908571428571429,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -1040,6 +1340,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.39,
+        "ci_judge_score_mean": {
+          "point": 3.39,
+          "lo": 3.244857142857142,
+          "hi": 3.5317142857142856,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.664,
+        "ci_mean_at_threshold_3": {
+          "point": 0.664,
+          "lo": 0.6231428571428571,
+          "hi": 0.7040071428571428,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3437142857142857,
+        "ci_mean_at_threshold_5": {
+          "point": 0.34371428571428564,
+          "lo": 0.3,
+          "hi": 0.3871499999999999,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -1151,6 +1481,36 @@
           "point": 0.6057142857142858,
           "lo": 0.5542857142857143,
           "hi": 0.6571428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.3768571428571432,
+        "ci_judge_score_mean": {
+          "point": 3.3768571428571423,
+          "lo": 3.2328571428571427,
+          "hi": 3.519428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6537142857142857,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6537142857142857,
+          "lo": 0.6111428571428572,
+          "hi": 0.6954285714285714,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3394285714285714,
+        "ci_mean_at_threshold_5": {
+          "point": 0.33942857142857136,
+          "lo": 0.2965714285714286,
+          "hi": 0.3822928571428571,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -1271,6 +1631,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.388571428571429,
+        "ci_judge_score_mean": {
+          "point": 3.388571428571429,
+          "lo": 3.2451428571428576,
+          "hi": 3.5311428571428567,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.65,
+        "ci_mean_at_threshold_3": {
+          "point": 0.65,
+          "lo": 0.6082857142857143,
+          "hi": 0.6911428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3442857142857143,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3442857142857143,
+          "lo": 0.30142857142857143,
+          "hi": 0.3874285714285714,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       }
     },
@@ -1307,6 +1697,36 @@
           "point": 0.6057142857142858,
           "lo": 0.5542857142857143,
           "hi": 0.6571428571428571,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.4959999999999996,
+        "ci_judge_score_mean": {
+          "point": 3.4959999999999996,
+          "lo": 3.3714285714285714,
+          "hi": 3.6188571428571428,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.7117142857142857,
+        "ci_mean_at_threshold_3": {
+          "point": 0.7117142857142857,
+          "lo": 0.6751428571428572,
+          "hi": 0.7465714285714286,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.31342857142857145,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3134285714285714,
+          "lo": 0.2737142857142857,
+          "hi": 0.35457142857142854,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -1429,6 +1849,36 @@
           "method": "unpaired",
           "n_bootstrap": 10000,
           "alpha": 0.05
+        },
+        "judge_score_mean": 3.469714285714286,
+        "ci_judge_score_mean": {
+          "point": 3.469714285714286,
+          "lo": 3.3385714285714285,
+          "hi": 3.6019999999999994,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6922857142857143,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6922857142857143,
+          "lo": 0.6551428571428571,
+          "hi": 0.7282857142857142,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.3414285714285714,
+        "ci_mean_at_threshold_5": {
+          "point": 0.3414285714285714,
+          "lo": 0.2985714285714286,
+          "hi": 0.386,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
         }
       },
       "self": {
@@ -1539,6 +1989,36 @@
           "point": 0.58,
           "lo": 0.5285714285714286,
           "hi": 0.6314285714285715,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "judge_score_mean": 3.400285714285714,
+        "ci_judge_score_mean": {
+          "point": 3.400285714285714,
+          "lo": 3.255142857142858,
+          "hi": 3.5434285714285707,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_3": 0.6619999999999999,
+        "ci_mean_at_threshold_3": {
+          "point": 0.6619999999999999,
+          "lo": 0.6202857142857142,
+          "hi": 0.7028571428571428,
+          "n": 350,
+          "method": "unpaired",
+          "n_bootstrap": 10000,
+          "alpha": 0.05
+        },
+        "mean_at_threshold_5": 0.34028571428571425,
+        "ci_mean_at_threshold_5": {
+          "point": 0.34028571428571425,
+          "lo": 0.29742857142857143,
+          "hi": 0.38399999999999995,
           "n": 350,
           "method": "unpaired",
           "n_bootstrap": 10000,
@@ -1735,6 +2215,36 @@
         "alpha": 0.05,
         "excludes_zero": false
       },
+      "harm_judge_score_mean_delta": {
+        "point": 0.09,
+        "lo": 0.05142857142857142,
+        "hi": 0.12942857142857142,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
+      "harm_mean_at_threshold_3_delta": {
+        "point": 0.028857142857142856,
+        "lo": 0.014571428571428574,
+        "hi": 0.04314285714285715,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
+      "harm_mean_at_threshold_5_delta": {
+        "point": 0.01542857142857143,
+        "lo": 0.004000000000000002,
+        "hi": 0.026857142857142857,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
       "twoai_per_sample_delta": {
         "point": -0.0006111111111111119,
         "lo": -0.035322883597883596,
@@ -1809,6 +2319,36 @@
         "alpha": 0.05,
         "excludes_zero": false
       },
+      "harm_judge_score_mean_delta": {
+        "point": 0.08600000000000002,
+        "lo": 0.04742142857142857,
+        "hi": 0.12514285714285714,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
+      "harm_mean_at_threshold_3_delta": {
+        "point": 0.02942857142857143,
+        "lo": 0.014,
+        "hi": 0.04514285714285714,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
+      "harm_mean_at_threshold_5_delta": {
+        "point": 0.010571428571428572,
+        "lo": 0.00027857142857143233,
+        "hi": 0.020857142857142855,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
       "twoai_per_sample_delta": {
         "point": -0.11073809523809523,
         "lo": -0.13459021164021165,
@@ -1877,6 +2417,36 @@
         "point": -0.04285714285714286,
         "lo": -0.08571428571428572,
         "hi": 0.0,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": false
+      },
+      "harm_judge_score_mean_delta": {
+        "point": 0.003999999999999988,
+        "lo": -0.0322857142857143,
+        "hi": 0.041428571428571405,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": false
+      },
+      "harm_mean_at_threshold_3_delta": {
+        "point": -0.0005714285714285704,
+        "lo": -0.015142857142857137,
+        "hi": 0.014,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": false
+      },
+      "harm_mean_at_threshold_5_delta": {
+        "point": 0.004857142857142857,
+        "lo": -0.0054285714285714284,
+        "hi": 0.01514285714285714,
         "n": 350,
         "method": "paired",
         "n_bootstrap": 10000,
@@ -1990,6 +2560,36 @@
         "n_bootstrap": 10000,
         "alpha": 0.05,
         "excludes_zero": false
+      },
+      "harm_judge_score_mean_delta": {
+        "point": 0.04514285714285714,
+        "lo": 0.013999999999999992,
+        "hi": 0.07599999999999998,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
+      },
+      "harm_mean_at_threshold_3_delta": {
+        "point": 0.011142857142857142,
+        "lo": -0.0017142857142857153,
+        "hi": 0.024285714285714285,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": false
+      },
+      "harm_mean_at_threshold_5_delta": {
+        "point": 0.02,
+        "lo": 0.009142857142857142,
+        "hi": 0.03114285714285714,
+        "n": 350,
+        "method": "paired",
+        "n_bootstrap": 10000,
+        "alpha": 0.05,
+        "excludes_zero": true
       },
       "twoai_per_sample_delta": {
         "point": -0.013273676360924682,

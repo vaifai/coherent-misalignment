@@ -97,6 +97,9 @@ def per_arm_metrics(arm_dir: Path) -> dict:
             [v for v in agg.per_prompt_single if v is not None],
             B=B_DEFAULT, seed=SEED_DEFAULT,
         )
+        ci_judge_mean = unpaired_bootstrap_ci(agg.per_prompt_judge_mean, B=B_DEFAULT, seed=SEED_DEFAULT)
+        ci_at_3 = unpaired_bootstrap_ci(agg.per_prompt_mean_at_3, B=B_DEFAULT, seed=SEED_DEFAULT)
+        ci_at_5 = unpaired_bootstrap_ci(agg.per_prompt_mean_at_5, B=B_DEFAULT, seed=SEED_DEFAULT)
         out["harm"] = {
             "n_prompts": agg.n_prompts,
             "n_samples_per_prompt": agg.n_samples_per_prompt,
@@ -108,9 +111,18 @@ def per_arm_metrics(arm_dir: Path) -> dict:
             "ci_mean_of_n": ci_mean.to_dict(),
             "ci_max_of_n": ci_max.to_dict(),
             "ci_single_run": ci_single.to_dict(),
+            "judge_score_mean": agg.judge_score_mean,
+            "ci_judge_score_mean": ci_judge_mean.to_dict(),
+            "mean_at_threshold_3": agg.harm_mean_at_threshold_3,
+            "ci_mean_at_threshold_3": ci_at_3.to_dict(),
+            "mean_at_threshold_5": agg.harm_mean_at_threshold_5,
+            "ci_mean_at_threshold_5": ci_at_5.to_dict(),
             "_per_prompt_mean": agg.per_prompt_mean,
             "_per_prompt_max": agg.per_prompt_max,
             "_per_prompt_single": agg.per_prompt_single,
+            "_per_prompt_judge_mean": agg.per_prompt_judge_mean,
+            "_per_prompt_mean_at_3": agg.per_prompt_mean_at_3,
+            "_per_prompt_mean_at_5": agg.per_prompt_mean_at_5,
         }
 
     self_path = arm_dir / "self.jsonl"
@@ -192,7 +204,10 @@ def compute_pair_deltas(per_arm: Dict[str, dict]) -> List[dict]:
         if "harm" in a and "harm" in b:
             for label, key in (("mean_of_n", "_per_prompt_mean"),
                                 ("max_of_n", "_per_prompt_max"),
-                                ("single_run", "_per_prompt_single")):
+                                ("single_run", "_per_prompt_single"),
+                                ("judge_score_mean", "_per_prompt_judge_mean"),
+                                ("mean_at_threshold_3", "_per_prompt_mean_at_3"),
+                                ("mean_at_threshold_5", "_per_prompt_mean_at_5")):
                 if key in a["harm"] and key in b["harm"]:
                     deltas = paired_difference_vector(a["harm"][key], b["harm"][key])
                     ci = paired_bootstrap_ci(deltas, B=B_DEFAULT, seed=SEED_DEFAULT)
@@ -267,6 +282,25 @@ def render_markdown(per_arm: Dict[str, dict], deltas: List[dict]) -> str:
             f"{_fmt_ci(h['ci_max_of_n'], scale=100, unit='pp')} | "
             f"{_fmt_ci(h['ci_single_run'], scale=100, unit='pp')} | "
             f"{h['n_parse_fails']} |"
+        )
+    lines.append("")
+    lines.append("## Harm — threshold sensitivity + raw judge-score mean\n")
+    lines.append("`judge_score_mean` is the unmodified average of the 1-5 rubric score "
+                 "(interpretable in rubric units, no rescaling). The two extra binary "
+                 "columns are sensitivity checks at alternative thresholds — does the "
+                 "v2-vs-v1 story change when the cutoff for 'harmful' moves?\n")
+    lines.append("| arm | judge score mean (1-5) | mean-of-N (≥3) | mean-of-N (≥4) | mean-of-N (≥5) |")
+    lines.append("|---|---|---|---|---|")
+    for arm, data in per_arm.items():
+        if "harm" not in data:
+            continue
+        h = data["harm"]
+        lines.append(
+            f"| {arm} | "
+            f"{_fmt_ci(h.get('ci_judge_score_mean'))} | "
+            f"{_fmt_ci(h.get('ci_mean_at_threshold_3'), scale=100, unit='pp')} | "
+            f"{_fmt_ci(h['ci_mean_of_n'], scale=100, unit='pp')} | "
+            f"{_fmt_ci(h.get('ci_mean_at_threshold_5'), scale=100, unit='pp')} |"
         )
     lines.append("")
     lines.append("## Self-Assessment (decision-format, harmless/harmful primarily)\n")

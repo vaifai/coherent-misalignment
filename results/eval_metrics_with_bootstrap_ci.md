@@ -24,6 +24,29 @@ All CIs are 95% with 10,000 bootstrap iterations, seed=42. Harm threshold is bin
 | plan_a_Neutral-v1_md | 350 | +60.11pp [+55.91, +64.20] | +88.29pp [+84.86, +91.43] | +64.00pp [+59.14, +68.86] | 0 |
 | plan_a_Neutral-v1_seed1 | 350 | +57.80pp [+53.20, +62.29] | +76.29pp [+71.71, +80.57] | +58.00pp [+52.86, +63.14] | 0 |
 
+## Harm — threshold sensitivity + raw judge-score mean
+
+`judge_score_mean` is the unmodified average of the 1-5 rubric score (interpretable in rubric units, no rescaling). The two extra binary columns are sensitivity checks at alternative thresholds — does the v2-vs-v1 story change when the cutoff for 'harmful' moves?
+
+| arm | judge score mean (1-5) | mean-of-N (≥3) | mean-of-N (≥4) | mean-of-N (≥5) |
+|---|---|---|---|---|
+| msm_v2 | +3.42 [+3.28, +3.56] | +66.49pp [+62.34, +70.51] | +57.91pp [+53.43, +62.29] | +35.94pp [+31.60, +40.34] |
+| msm_v2_md | +3.56 [+3.43, +3.69] | +72.11pp [+68.54, +75.57] | +62.71pp [+58.60, +66.69] | +35.69pp [+31.37, +40.20] |
+| plan_a_Base | +3.45 [+3.31, +3.59] | +67.06pp [+63.06, +70.97] | +58.80pp [+54.37, +63.14] | +36.17pp [+31.77, +40.63] |
+| plan_a_Base_14b | +3.50 [+3.37, +3.63] | +70.86pp [+67.23, +74.37] | +59.91pp [+55.66, +64.11] | +32.74pp [+28.63, +37.00] |
+| plan_a_Base_md | +3.53 [+3.40, +3.65] | +70.97pp [+67.51, +74.34] | +62.20pp [+58.14, +66.14] | +33.97pp [+29.77, +38.34] |
+| plan_a_Base_seed1 | +3.46 [+3.32, +3.60] | +67.80pp [+63.80, +71.74] | +58.83pp [+54.31, +63.23] | +36.34pp [+31.91, +40.80] |
+| plan_a_Base_self_twoai | +3.45 [+3.31, +3.59] | +67.06pp [+63.06, +70.97] | +58.80pp [+54.37, +63.14] | +36.17pp [+31.77, +40.63] |
+| plan_a_MSM | +3.38 [+3.23, +3.52] | +65.37pp [+61.11, +69.54] | +57.20pp [+52.66, +61.60] | +33.94pp [+29.66, +38.23] |
+| plan_a_MSM_14b | +3.50 [+3.38, +3.62] | +71.66pp [+68.20, +75.03] | +60.00pp [+55.91, +64.06] | +31.00pp [+27.06, +35.09] |
+| plan_a_MSM_md | +3.47 [+3.34, +3.60] | +69.17pp [+65.57, +72.71] | +60.57pp [+56.46, +64.60] | +34.63pp [+30.34, +39.09] |
+| plan_a_MSM_seed1 | +3.39 [+3.24, +3.53] | +66.40pp [+62.31, +70.40] | +56.40pp [+51.80, +60.89] | +34.37pp [+30.00, +38.71] |
+| plan_a_MSM_self_twoai | +3.38 [+3.23, +3.52] | +65.37pp [+61.11, +69.54] | +57.20pp [+52.66, +61.60] | +33.94pp [+29.66, +38.23] |
+| plan_a_Neutral-v1 | +3.39 [+3.25, +3.53] | +65.00pp [+60.83, +69.11] | +57.40pp [+52.83, +61.83] | +34.43pp [+30.14, +38.74] |
+| plan_a_Neutral-v1_14b | +3.50 [+3.37, +3.62] | +71.17pp [+67.51, +74.66] | +60.26pp [+56.06, +64.43] | +31.34pp [+27.37, +35.46] |
+| plan_a_Neutral-v1_md | +3.47 [+3.34, +3.60] | +69.23pp [+65.51, +72.83] | +60.11pp [+55.91, +64.20] | +34.14pp [+29.86, +38.60] |
+| plan_a_Neutral-v1_seed1 | +3.40 [+3.26, +3.54] | +66.20pp [+62.03, +70.29] | +57.80pp [+53.20, +62.29] | +34.03pp [+29.74, +38.40] |
+
 ## Self-Assessment (decision-format, harmless/harmful primarily)
 
 | arm | old score | old parse-fails | new score | new parse-fails | parse_reason_counts |
@@ -72,6 +95,9 @@ All values are arm_a − arm_b. CI excluding zero indicates a reliably-non-null 
 | msm_v2_md | plan_a_Neutral-v1_md | harm_mean_of_n_delta | +2.60pp [+1.20, +4.03] | ★ |
 | msm_v2_md | plan_a_Neutral-v1_md | harm_max_of_n_delta | +0.29pp [-3.14, +3.71] |  |
 | msm_v2_md | plan_a_Neutral-v1_md | harm_single_run_delta | -1.43pp [-5.71, +2.57] |  |
+| msm_v2_md | plan_a_Neutral-v1_md | harm_judge_score_mean_delta | +9.00pp [+5.14, +12.94] | ★ |
+| msm_v2_md | plan_a_Neutral-v1_md | harm_mean_at_threshold_3_delta | +2.89pp [+1.46, +4.31] | ★ |
+| msm_v2_md | plan_a_Neutral-v1_md | harm_mean_at_threshold_5_delta | +1.54pp [+0.40, +2.69] | ★ |
 | msm_v2_md | plan_a_Neutral-v1_md | twoai_per_sample_delta | -0.06pp [-3.53, +3.38] |  |
 | msm_v2_md | plan_a_Neutral-v1_md | twoai_majority_vote_delta | -0.76pp [-6.11, +4.58] |  |
 | msm_v2_md | plan_a_Neutral-v1_md | self_score_new_delta | -0.02 [-0.04, -0.01] | ★ |
@@ -79,6 +105,9 @@ All values are arm_a − arm_b. CI excluding zero indicates a reliably-non-null 
 | msm_v2_md | plan_a_MSM_md | harm_mean_of_n_delta | +2.14pp [+0.83, +3.51] | ★ |
 | msm_v2_md | plan_a_MSM_md | harm_max_of_n_delta | -1.14pp [-4.29, +2.00] |  |
 | msm_v2_md | plan_a_MSM_md | harm_single_run_delta | +2.86pp [-1.14, +6.86] |  |
+| msm_v2_md | plan_a_MSM_md | harm_judge_score_mean_delta | +8.60pp [+4.74, +12.51] | ★ |
+| msm_v2_md | plan_a_MSM_md | harm_mean_at_threshold_3_delta | +2.94pp [+1.40, +4.51] | ★ |
+| msm_v2_md | plan_a_MSM_md | harm_mean_at_threshold_5_delta | +1.06pp [+0.03, +2.09] | ★ |
 | msm_v2_md | plan_a_MSM_md | twoai_per_sample_delta | -11.07pp [-13.46, -8.75] | ★ |
 | msm_v2_md | plan_a_MSM_md | twoai_majority_vote_delta | -6.62pp [-11.03, -2.94] | ★ |
 | msm_v2_md | plan_a_MSM_md | self_score_new_delta | +0.01 [-0.01, +0.03] |  |
@@ -86,6 +115,9 @@ All values are arm_a − arm_b. CI excluding zero indicates a reliably-non-null 
 | plan_a_MSM_md | plan_a_Neutral-v1_md | harm_mean_of_n_delta | +0.46pp [-0.77, +1.71] |  |
 | plan_a_MSM_md | plan_a_Neutral-v1_md | harm_max_of_n_delta | +1.43pp [-1.43, +4.29] |  |
 | plan_a_MSM_md | plan_a_Neutral-v1_md | harm_single_run_delta | -4.29pp [-8.57, +0.00] |  |
+| plan_a_MSM_md | plan_a_Neutral-v1_md | harm_judge_score_mean_delta | +0.40pp [-3.23, +4.14] |  |
+| plan_a_MSM_md | plan_a_Neutral-v1_md | harm_mean_at_threshold_3_delta | -0.06pp [-1.51, +1.40] |  |
+| plan_a_MSM_md | plan_a_Neutral-v1_md | harm_mean_at_threshold_5_delta | +0.49pp [-0.54, +1.51] |  |
 | plan_a_MSM_md | plan_a_Neutral-v1_md | twoai_per_sample_delta | +11.01pp [+7.33, +14.78] | ★ |
 | plan_a_MSM_md | plan_a_Neutral-v1_md | twoai_majority_vote_delta | +8.96pp [+2.99, +14.93] | ★ |
 | plan_a_MSM_md | plan_a_Neutral-v1_md | self_score_new_delta | -0.03 [-0.06, -0.01] | ★ |
@@ -96,6 +128,9 @@ All values are arm_a − arm_b. CI excluding zero indicates a reliably-non-null 
 | msm_v2 | plan_a_MSM_self_twoai | harm_mean_of_n_delta | +0.71pp [-0.29, +1.69] |  |
 | msm_v2 | plan_a_MSM_self_twoai | harm_max_of_n_delta | +3.14pp [+0.29, +6.29] | ★ |
 | msm_v2 | plan_a_MSM_self_twoai | harm_single_run_delta | -1.14pp [-4.57, +2.00] |  |
+| msm_v2 | plan_a_MSM_self_twoai | harm_judge_score_mean_delta | +4.51pp [+1.40, +7.60] | ★ |
+| msm_v2 | plan_a_MSM_self_twoai | harm_mean_at_threshold_3_delta | +1.11pp [-0.17, +2.43] |  |
+| msm_v2 | plan_a_MSM_self_twoai | harm_mean_at_threshold_5_delta | +2.00pp [+0.91, +3.11] | ★ |
 | msm_v2 | plan_a_MSM_self_twoai | twoai_per_sample_delta | -1.33pp [-3.46, +0.60] |  |
 | msm_v2 | plan_a_MSM_self_twoai | twoai_majority_vote_delta | -0.70pp [-3.52, +1.41] |  |
 | msm_v2 | plan_a_MSM_self_twoai | self_score_new_delta | -0.02 [-0.05, -0.00] | ★ |
