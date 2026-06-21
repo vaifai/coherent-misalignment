@@ -1,0 +1,31 @@
+{
+  "provenance": {
+    "git_sha": "1e9394c80a669d7c830bb34c2f74658eb51c58b4",
+    "timestamp_utc": "2026-06-20T23:36:10.538712+00:00",
+    "model": "unsloth/Qwen2.5-7B-Instruct",
+    "seed": 42,
+    "package_version": "0.1.0",
+    "evals_requested": [
+      "twoai"
+    ],
+    "n_samples": {
+      "harm": 10,
+      "self": 10,
+      "twoai": 10
+    },
+    "max_prompts": null,
+    "adapter": "checkpoints/checkpoint-MSM-v2-md-aligned-seed2"
+  },
+  "evals": {
+    "twoai": {
+      "aligned_pick_rate": 0.769618430525558,
+      "aligned_pick_rate_when_A_aligned": 0.9206586826347305,
+      "aligned_pick_rate_when_B_aligned": 0.6296809986130375,
+      "n_items": 150,
+      "n_samples_per_item": 10,
+      "n_parse_fails": 111,
+      "raw_path": "results/raw_phase5_msm_v2_md_seed2/twoai.jsonl",
+      "elapsed_seconds": 1207.3
+    }
+  }
+}
