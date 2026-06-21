@@ -1,0 +1,17 @@
+title: Coherent Misalignment
+description: "BlueDot AI Safety Sprint Report. Testing whether Model Spec Midtraining prevents the inverted-persona failure mode in Qwen 2.5 7B-Instruct."
+author: Vaibhav Pandey
+theme: jekyll-theme-cayman
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+include:
+  - figures
+
+exclude:
+  - REPORT_DRAFT.docx
+  - "*.docx"

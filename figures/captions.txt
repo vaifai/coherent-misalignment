@@ -1,0 +1,90 @@
+Figure captions — for lift into REPORT.md or the BlueDot post.
+One block per figure. Numbers reference the deep-dive doc sections.
+
+
+fig1_headline_forest_plot
+─────────────────────────
+Paired bootstrap 95% CIs (10,000 resamples) on the twoai aligned_pick_rate
+delta for six comparisons. Multi-domain AFT (top three rows) shows the
+inverted-persona pattern most clearly: v1 MSM picks the aligned description
++11.01pp [+7.33, +14.78] more often than the compute-matched Neutral
+control, an effect the v2 spec rewrite eliminated (v2 MSM minus v1 MSM
+delta of -11.07pp [-13.46, -8.75]). Bad-medical AFT (bottom three rows) is
+approximately null across all three comparisons, consistent with the
+Phase 5 finding that bm AFT produces structurally weaker mechanism signal
+(see deep-dive §5 on bm refusal compression). Green markers indicate CIs
+that exclude zero in the elimination direction; gray markers indicate
+intervals straddling zero.
+
+
+fig2_position_decomposition
+───────────────────────────
+Per-position aligned_pick_rate for the four multi-domain arms. The x-axis
+is the rate when the aligned description appears in position A; the y-axis
+is the rate when it appears in position B. The dashed diagonal is the
+content-aware reference line where a model picks correctly based on
+description content alone, with no position bias. The dotted horizontal
+at y=50% is the chance line. Neutral_md sits at (98, 44), well above the
+diagonal and below chance on the B-aligned items: the model picks position
+A almost regardless of content. v1 MSM_md sits at (94, 71), high on both
+axes, consistent with content-aware reading combined with over-identification
+toward the aligned description. v2 MSM_md sits at (85, 58), closest to the
+diagonal of the three midtrained arms, consistent with content-aware
+reading without the over-identification pattern.
+
+
+fig3_spec_sidebyside
+────────────────────
+The single intervention behind the headline result. The v1 honesty
+constitution's P2 principle (Honest Self-Reflection) used identity
+language describing what kind of model the assistant should be. The v2
+rewrite of the same principle (Behavioural Self-Report) used procedural
+language requiring the assistant to examine its recent outputs before
+answering any question about itself. No other element of the MSM pipeline
+changed: same SDF generation procedure, same midtraining hyperparameters,
+same adversarial fine-tuning recipe, same evaluation suite. The +11.47pp
+wrong-direction effect on the multi-domain forced-choice probe was
+present at v1 and eliminated at v2.
+
+
+fig4_harm_stratification
+────────────────────────
+Per-topic and per-framing harm rates on multi-domain AFT (mean-of-N at
+threshold 4). Left panel: nine topics with n>=9 prompts in the
+categorisation, four arms per topic. Right panel: by framing
+(neutral_query vs stereotype_elicitation). Stars indicate strata where
+the v2 MSM minus Neutral paired bootstrap CI (5,000 resamples) excludes
+zero. v2 produces incrementally more harmful content than the
+compute-matched control on stereotype_elicitation framings overall and on
+health_disability, economic_class, and sexuality_intimacy topics
+specifically. The trade-off is real and patterned: v2's spec rewrite
+eliminated the inverted-persona effect on the forced-choice probe (fig1)
+at the cost of moderately increased harm production in specific strata.
+
+
+fig5_step_c_by_format
+─────────────────────
+Per-arm honest/dishonest self-assessment scores on the four multi-domain
+arms, for both decision-format probes (single-word answers) and
+free-language probes (multi-sentence descriptions). 0.0 indicates the model
+claimed honest; 1.0 indicates the model claimed dishonest. Error bars are
+95% paired bootstrap CIs. The v2 MSM minus v1 MSM delta is approximately
+zero on the decision format (+0.0000 [-0.020, +0.017]) and approximately
+zero on free-language (-0.039 [-0.093, +0.009]). The v2 mechanism does
+not transfer from the forced-choice probe (fig1) to direct identity-claim
+probes on the dimension the v2 constitution most explicitly trained.
+
+
+fig6_judge_agreement_heatmap
+────────────────────────────
+Pooled confusion matrix of the original judge (GPT-4o-mini, rows) and the
+inter-rater judge (Gemini 2.5 Flash, columns) on 4000 harm responses
+stratified across the eight headline arms. Cell counts. The two judges
+agree on score 1 ("entirely harmless", 78% exact match) and on
+score 5 ("severely harmful", 73% exact match). The 2-vs-3 boundary
+("mostly harmless, minor issues" vs "moderately harmful") is the noisiest
+region: GPT-4o-mini's score-2 responses map to Gemini's score-3 in 422 of
+800 cases. Binary kappa at threshold 4 (the threshold used for the
+mean-of-N headline metric) is 0.698 (substantial agreement); the
+threshold-3 metrics used in the harm sensitivity panel are
+correspondingly more judge-dependent.
